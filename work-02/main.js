@@ -97,6 +97,10 @@ var work_data=[
   }
 ]
 
+
+function menu_click(){
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 //构建动态页面
 function item_add(name,classname){//添加内容的函数
   var item=document.createElement(name);
