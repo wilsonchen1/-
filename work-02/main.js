@@ -105,17 +105,37 @@ function item_add(name,classname){//添加内容的函数
 }
 
 function menu_click(e){//生成菜单
+  function word_show(word){
+    var div_tmp=document.createElement('div');
+    div_tmp.innerText=word;
+    div_tmp.className='word';
+    return div_tmp;
+  }
   var menu=document.createElement('div');
   var img1=document.createElement('img');
   img1.src="imgs/icon-close.svg";
   img1.className='img_close';
 
-  menu.innerText='Inspiration Find WorkLearn Design Go pro High Designers';
+  var div1=word_show('Inspiration');
+  var div2=word_show('Find Work');
+  var div3=word_show('Learn Design');
+  var div4=word_show('Go pro');
+  var div5=word_show('High Designers');
+
+  menu.appendChild(div1);
+  menu.appendChild(div2);
+  menu.appendChild(div3);
+  menu.appendChild(div4);
+  menu.appendChild(div5);
   menu.className='menu_content';
   menu.appendChild(img1);
   document.body.appendChild(menu);
+  
+  img1.addEventListener('click',close_click);//检测删除
+  function close_click(){
+    document.body.removeChild(menu);
+  }
 }
-
 
 
 var item_list=item_add('list','list');
