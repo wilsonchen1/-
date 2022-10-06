@@ -97,16 +97,27 @@ var work_data=[
   }
 ]
 
-
-function menu_click(){
-  document.getElementById("myDropdown").classList.toggle("show");
-}
 //构建动态页面
 function item_add(name,classname){//添加内容的函数
   var item=document.createElement(name);
   item.className=classname;
   return item;
 }
+
+function menu_click(e){//生成菜单
+  var menu=document.createElement('div');
+  var img1=document.createElement('img');
+  img1.src="imgs/icon-close.svg";
+  img1.className='img_close';
+
+  menu.innerText='Inspiration Find WorkLearn Design Go pro High Designers';
+  menu.className='menu_content';
+  menu.appendChild(img1);
+  document.body.appendChild(menu);
+}
+
+
+
 var item_list=item_add('list','list');
 var divheader=item_add('section','header');
 
