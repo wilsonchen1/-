@@ -16,8 +16,8 @@
     <div id="root">
       <header>
         <div class="title">Todo List</div>
-        <input id="input1"  type="text" class="input" placeholder="What needs to be done?" autocomplete="off" value=""
-          onkeydown="(function(e){if (!e) e = window.event;switch (e.keyCode | e.which | e.charCode) {case 13:item_add();myLocalStorage();break;}})(event);">
+        <input id="input1" type="text" class="input" placeholder="What needs to be done?" autocomplete="off" value=""
+          onkeydown="(function(e){if (!e) e = window.event;switch (e.keyCode | e.which | e.charCode) {case 13:myArrayStorage();break;}})(event);">
       </header>
       <section id="app"></section>
     </div>
@@ -25,5 +25,6 @@
 
 </body>
 <script src="./assets/main.js"></script>
+
 
 </html>
