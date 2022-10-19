@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "dayjs": "^1.11.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "svgo-loader": "^3.0.1",
+    "ts-loader": "^9.4.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "name": "week04123",
+  "description": "- 首先是静态部分的生成，我直接从task里面copy的静态部分，顺便经过老师的指点，了解了字体的引入\r - 动态部分用的是createElement生成的，结构上是init函数为主，分别写了add,delete,localstorage等函数\r ## 思路和实现方法：\r - 首先是声明一个全局的数组变量，用于存储输入的对象。\r - 其次是init函数每次刷新的时候都会用parse读取localstorage的内容，然后动态的加载元素。当一开始没有输入时，在init()里把全局的数组置空，而如果有值就直接读取，从而防止数组未定义报错\r - 每一个对象都有自己唯一的随机id（随机函数是在网上随便找的），然后在动态生成元素的时候，顺便把id也和对象设置成一样的，所以在修改finished和删除的操作时，我都是用了id去匹配，当遍历数组时，如果id和这个元素的id匹配，那么就把该对象的值修改，把该元素的class修改，然后把修改后的数组重新存储到localstorage();\r - 在程序运行的时候，只执行了init函数，他不断维护数组，回车键监听添加函数，对应的会在init里被维护。其他的函数都是在init里根据变化进行调用，用户调用的只有enter键触发的点击事件。",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "webpack-dev-server -c ./scripts/webpack.dev.js",
+    "build": "webpack-cli -c ./scripts/webpack.prod.js"
+  },
+  "keywords": [],
+  "author": "cyh",
+  "license": "ISC"
+}
