@@ -3,12 +3,13 @@ const path = require("path");
 
 config.mode = "development";
 config.devtool = "source-map";
-// config.devServer = {
-//   hot: true,
-//   port: 8080,
+config.devServer = {
+  hot: true,
+  port: 8080,
+  open:true
 //   static: {
 //     directory: path.join(__dirname, "../public"),
 //   },
-// };
+};
 
 module.exports = config;
