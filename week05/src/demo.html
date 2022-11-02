@@ -1,0 +1,69 @@
+<body>
+<div id="app"></div>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.development.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script type="text/babel">
+  const { useState } = React;
+  const TodoList = () => {
+    const [list, setList] = useState([]);
+    const saveHandle = (e) => {
+      if (e.keyCode == 13 && e.target.value) {
+        setList([
+          ...list,
+          {
+            id: Date.now(),
+            content: e.target.value,
+            isEnd: false,
+          },
+        ]);
+      }
+    };
+    const endHandle = (id) => {
+      setList(
+        list.map((item) => {
+          if (item.id == id) {
+            return {
+              ...item,
+              isEnd: true,
+            };
+          }
+          return { ...item };
+        })
+      );
+    };
+    const delHandle = (id) => {
+      setList(list.filter((item) => item.id != id));
+    };
+    return (
+      <div className="todo-list">
+        <input type="text" placeholder="请输入内容" onKeyUp={saveHandle} />
+        <div className="list">
+          {list.map((item) => (
+            <div className="item" key={item.id}>
+              <p>{item.content}</p>
+              <div className="op">
+                {item.isEnd ? null : (
+                  <button onClick={() => endHandle(item.id)}>完成</button>
+                )}
+                <button onClick={() => delHandle(item.id)}>删除</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+  function App() {
+    const getChildParams = (str) => {
+      console.log(str);
+    };
+    return (
+      <div className="main">
+        <TodoList />
+      </div>
+    );
+  }
+  ReactDOM.render(<App />, document.querySelector("#app"));
+</script>
+</body>

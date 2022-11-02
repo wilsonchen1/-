@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors":true,
+    "noImplicitReturns": true,
+    "jsx": "react",
+    "module": "CommonJS",
+    "target": "es5",
+    "allowJs": true,
+    "lib": ["ESNext","DOM"]
+  },
+  "files": ["src/main.tsx"]
+}
