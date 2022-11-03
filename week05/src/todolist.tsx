@@ -4,40 +4,29 @@ import { Todo } from "./types";
 import "./styles/iconfont.css";
 import dayjs from "dayjs";
 
-let todos: Todo[] = JSON.parse(localStorage.getItem("_todos"));
-const todos_active: Todo[] = [];
-const todos_finished: Todo[] = [];
+let todos: Todo[] =JSON.parse(localStorage.getItem("_todos"));
+if(!todos) todos=[];
+myLocalStorage(todos);
+
 function myLocalStorage(a: Todo[]) {
   //把数据存储到本地,并且维护这个数组
   //把已做和未做数组拼在一起存储
   localStorage.setItem("_todos", JSON.stringify(a));
 }
-export { todos_active, todos };
-export { myLocalStorage };
+// function conCat() {
+//   //吧两个数组拼在一起
+//   todos = todos_active.concat(todos_finished);
+// }
+// export { todos_active, todos_finished, todos };
+export{todos}
+export { myLocalStorage};
 export default function TodoList() {
   const [visibleTodos, setVisibleTodos] = useState<Todo[]>(todos);
 
   function Item(props: Todo) {
-    // function Change(
-    //   // arr_finished: Todo[],
-    //   // arr_active: Todo[],
-    //   ischange: boolean,
-    //   item: Todo,
-    //   index: number
-    // ) {
-    //   if (ischange === true) {
-    //     todos_finished.unshift(item);
-    //     todos_active.splice(index, 1);
-    //     todos = todos_active.concat(todos_finished);
-    //   } else {
-    //     todos_active.unshift(item);
-    //     todos_finished.splice(index, 1);
-    //     todos = todos_active.concat(todos_finished);
-    //   }
-    // }
-
     const checked = (id: string) => {
       //修改finished的状态并存入本地
+      // conCat();//把全部数组的元素都监听
       setVisibleTodos(
         //返回需改的数组，修改状态重新渲染
         todos.map((todo: Todo, index: number) => {
@@ -46,18 +35,29 @@ export default function TodoList() {
             todo.mtime = dayjs().toString(); //每次点击都要更新时间
             myLocalStorage(todos);
           }
+          // if (todo.finished === true) {
+          //   todos_finished.unshift(todo);
+          //   todos_active.splice(index, 1);
+          //   conCat();
+          //   myLocalStorage(todos)
+          // } else {
+          //   todos_active.unshift(todo);
+          //   todos_finished.splice(index, 1);
+          //   conCat();
+          //   myLocalStorage(todos)
+          // }
           return { ...todo };
         })
       );
     };
-    const myDelete = (id: string) => {
+    const myDelete = (id: string) => {      //删除条目
       // for(let i=0;i<todos.length;i++){
       //   if(todos[i].id===id)
       //   todos.splice(i,1);
       // }
       // setVisibleTodos(todos.filter((todo) => todo.id !== id));
       todos = todos.filter((todo) => todo.id !== id);
-      setVisibleTodos(todos)
+      setVisibleTodos(todos);
       myLocalStorage(todos);
     };
     return (
