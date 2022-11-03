@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import Item from "./Item";
 import { Todo } from "./types";
 import "./styles/iconfont.css";
@@ -26,36 +26,20 @@ export default function TodoList() {
   function Item(props: Todo) {
     const checked = (id: string) => {
       //修改finished的状态并存入本地
-      // conCat();//把全部数组的元素都监听
-      setVisibleTodos(
-        //返回需改的数组，修改状态重新渲染
         todos.map((todo: Todo, index: number) => {
           if (todo.id === id) {
             todo.finished = !todo.finished;
             todo.mtime = dayjs().toString(); //每次点击都要更新时间
             myLocalStorage(todos);
           }
-          // if (todo.finished === true) {
-          //   todos_finished.unshift(todo);
-          //   todos_active.splice(index, 1);
-          //   conCat();
-          //   myLocalStorage(todos)
-          // } else {
-          //   todos_active.unshift(todo);
-          //   todos_finished.splice(index, 1);
-          //   conCat();
-          //   myLocalStorage(todos)
-          // }
           return { ...todo };
         })
-      );
+      let todos_active=todos.filter((todo)=>todo.finished===false)//把两个不同的数组提取出来
+      let todos_finished=todos.filter((todo)=>todo.finished===true)
+      setVisibleTodos(todos=todos_active.concat(todos_finished));//重新按顺序合并，并且渲染
+      myLocalStorage(todos);//存到本地
     };
     const myDelete = (id: string) => {      //删除条目
-      // for(let i=0;i<todos.length;i++){
-      //   if(todos[i].id===id)
-      //   todos.splice(i,1);
-      // }
-      // setVisibleTodos(todos.filter((todo) => todo.id !== id));
       todos = todos.filter((todo) => todo.id !== id);
       setVisibleTodos(todos);
       myLocalStorage(todos);
