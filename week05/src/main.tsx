@@ -12,7 +12,7 @@ function App() {
   const [Value, setValue] = useState(""); //给value设置状态，这样改动的时候重新渲染
   // const inputRef=React.useRef(null);
   const getIptValue = (event: { target: { value: any } }) => {
-    setValue(event.target.value);
+    setValue(event.target.value.trim());
     return event.target.value; //获取ipt的值
   };
   return (
@@ -33,7 +33,7 @@ function App() {
               if (event.key === "Enter") {
                 //这里我解释一下为什么把函数写返回值里，因为写在外面会报错呜呜
                 //网上找了好多都不得行。
-
+              
                 let item: Todo = {
                   //把新写的条目添加进来
                   id: uuidv4(),
@@ -50,10 +50,11 @@ function App() {
                 setValue(item.content);
                 setValue(""); //清空input，渲染
               }
+              
             }}
           ></input>
         </header>
-        <TodoList />
+        <TodoList setValue={setValue}/>
       </div>
     </>
   );

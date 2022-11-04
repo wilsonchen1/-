@@ -20,7 +20,7 @@ function myLocalStorage(a: Todo[]) {
 // export { todos_active, todos_finished, todos };
 export{todos}
 export { myLocalStorage};
-export default function TodoList() {
+export default function TodoList(props:{setValue:Function}) {
   const [visibleTodos, setVisibleTodos] = useState<Todo[]>(todos);
 
   function Item(props: Todo) {
@@ -36,7 +36,16 @@ export default function TodoList() {
         })
       let todos_active=todos.filter((todo)=>todo.finished===false)//把两个不同的数组提取出来
       let todos_finished=todos.filter((todo)=>todo.finished===true)
-      setVisibleTodos(todos=todos_active.concat(todos_finished));//重新按顺序合并，并且渲染
+      todos=todos_active.concat(todos_finished)//把数组拼在一起，未完成在前
+      setVisibleTodos(todos.sort((a:Todo,b:Todo)=>{//排序函数，按照时间排序，时间晚的在前面
+        if(a.finished>b.finished) return 1
+        else if(a.finished<b.finished) return -1//未完成的在前
+        else {
+          if(a.mtime>b.mtime) return -1//同类别的时间晚的在前
+          else return 1
+        }
+      }))
+      // setVisibleTodos(todos);//重新按顺序合并，并且渲染
       myLocalStorage(todos);//存到本地
     };
     const myDelete = (id: string) => {      //删除条目
