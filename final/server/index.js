@@ -156,6 +156,7 @@ async function addStudent(ctx) {
   const body = ctx.request.body;
   console.log(body);
   body.id = USERS.length;
+  if(!body.headimg) body.headimg="https://www.com8.cn/wp-content/uploads/2020/09/20200922022838-5f6961562471f.jpg"
   USERS.unshift(body);//把学生放在第一个，这样可以立刻看到添加的结果
   console.log(body);
   ctx.body = {
