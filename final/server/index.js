@@ -10,7 +10,7 @@ var app = new Koa();
 app.use(server("./public"));
 var router = new Router();
 
-var USERS = [];
+var USERS = [];//后台本地存储
 function createRandomUser(index) {
   //创建数据
   return {
@@ -216,8 +216,6 @@ async function deleteStudent(ctx) {
 router.post("/api/user/login", checkUser); //登录
 router.post("/api/user/logout", getUserInfo, checkUserOut); //退出登录
 router.get("/api/students", getUserInfo, getStudents); //获取所有学生数据
-// router.post("/api/students/create", getUserInfo, createUser);
-// router.get("/api/students/:id", getStudentInfo);
 router.post("/api/students/add", getUserInfo, addStudent); //添加
 router.post("/api/students/edit", getUserInfo, editStudent); //编辑
 
