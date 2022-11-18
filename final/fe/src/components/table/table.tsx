@@ -79,14 +79,17 @@ const MyTable: React.FC = () => {
       key: "action",
 
       render: (_, record) => {
-        //这里的组件来自option.tsx的View组件，可以查看学生具体信息
+        //这里的组件来自option.tsx的View组件，可以查看和删除和编辑学生具体信息
 
-        const Delete=(arr:DataType[])=>{
+        const Delete=(arr:DataType[])=>{//这里定义传入View组件的内容
+          setStudentList(arr)
+        }
+        const Edit=(arr:DataType[])=>{//这里定义传入View组件的内容
           setStudentList(arr)
         }
         return (
           <>
-            <View prop={record} Delete={Delete}></View>
+            <View prop={record} Delete={Delete}Edit={Edit}></View>
           </>
         );
       },
@@ -193,7 +196,7 @@ const MyTable: React.FC = () => {
       message.success("重置成功");
     });
   };
-  var add = (arr: DataType[]) => {
+  var Set = (arr: DataType[]) => {
     //从Modal子组件传值
     setStudentList(arr);
   };
@@ -206,7 +209,7 @@ const MyTable: React.FC = () => {
           <Button size="large" onClick={reset}>
             重置
           </Button>
-          <MyModal add={add}></MyModal>
+          <MyModal add={Set}></MyModal>
         </Space>
       </div>
       <Table

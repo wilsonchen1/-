@@ -15,7 +15,6 @@ function createRandomUser(index) {
   //创建数据
   return {
     id: index,
-    age: parseInt(19 + Math.random() * 10),
     sex: Math.random() > 0.5 ? "男" : "女",
     name: ChineseName.random(),
     email: "645695312@qq.com",
@@ -70,7 +69,7 @@ async function checkUser(ctx) {
   if (isCorrect) {
     // 写入 koa-session
     ctx.session.user = user;
-    console.log(ctx.session.user)
+    console.log(ctx.session.user);
     ctx.body = { code: 0, message: "登录成功" };
   } else {
     ctx.body = { code: -1, message: "用户名或密码错误" };
@@ -148,7 +147,7 @@ async function reset(ctx) {
   ctx.body = {
     code: 0,
     message: "重置成功",
-    students: USERS,//直接把数组原封不动返回即可
+    students: USERS, //直接把数组原封不动返回即可
   };
 }
 async function addStudent(ctx) {
@@ -156,14 +155,37 @@ async function addStudent(ctx) {
   const body = ctx.request.body;
   console.log(body);
   body.id = USERS.length;
-  if(!body.headimg) body.headimg="https://www.com8.cn/wp-content/uploads/2020/09/20200922022838-5f6961562471f.jpg"
-  USERS.unshift(body);//把学生放在第一个，这样可以立刻看到添加的结果
+  if (!body.headimg)
+    body.headimg =
+      "https://www.com8.cn/wp-content/uploads/2020/09/20200922022838-5f6961562471f.jpg";
+  USERS.unshift(body); //把学生放在第一个，这样可以立刻看到添加的结果
   console.log(body);
   ctx.body = {
     code: 0,
     message: "提交成功",
     students: USERS,
   };
+}
+async function editStudent(ctx) {
+  //编辑学生，并把学生列表返回客户端
+  const body = ctx.request.body;
+  console.log(body.id);
+  let ischange = 0;
+  for(let i=0;i<USERS.length;i++){
+    if(USERS[i].id==body.id){ USERS[i]=body;ischange=1}//修改数组
+  }
+  if (ischange) {
+    ctx.body = {
+      code: 0,
+      message: "修改成功",
+      students: USERS,
+    };
+  } else {
+    ctx.body = {
+      code: -1,
+      message: "修改失败",
+    };
+  }
 }
 async function deleteStudent(ctx) {
   //删除学生，并把学生列表返回客户端
@@ -193,10 +215,12 @@ async function deleteStudent(ctx) {
 }
 router.post("/api/user/login", checkUser); //登录
 router.post("/api/user/logout", getUserInfo, checkUserOut); //退出登录
-router.get("/api/students", getUserInfo, getStudents);//获取所有学生数据
+router.get("/api/students", getUserInfo, getStudents); //获取所有学生数据
 // router.post("/api/students/create", getUserInfo, createUser);
 // router.get("/api/students/:id", getStudentInfo);
 router.post("/api/students/add", getUserInfo, addStudent); //添加
+router.post("/api/students/edit", getUserInfo, editStudent); //编辑
+
 router.post("/api/students/delete", getUserInfo, deleteStudent); //删除
 router.post("/api/students/search", getUserInfo, searchStudent); //查询
 router.get("/api/students/reset", reset); //重置
@@ -205,4 +229,4 @@ app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(3001);
 console.log(path.resolve(__dirname, "public"));
-console.log("is running")
+console.log("is running");
