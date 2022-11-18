@@ -2,7 +2,7 @@ import { UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import {  Outlet, useNavigate } from "react-router-dom";
-import UserAvatar from "./admin/admin";
+import UserAvatar from "../admin/admin";
 import "./AppLayout.css";
 
 const { Sider, Content } = Layout;

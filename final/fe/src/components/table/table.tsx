@@ -1,11 +1,14 @@
 import { Space, Table, Tag, Image, Button, message, Input } from "antd";
 import "./table.css";
 import type { ColumnsType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import MyModal from "../adduser";
-import MyDropdown from "../option";
 import { useNavigate } from "react-router-dom";
+import View from "../option";
+
+export const listContext = React.createContext([]); //这里设置一个全局状态，便于写option.tsx
+
 type DataType = {
   id: number;
   key: string;
@@ -17,66 +20,8 @@ type DataType = {
   phonenumber: string;
   headimg: string;
 };
+
 var STUDENTS: DataType[] = [];
-
-const columns: ColumnsType<DataType> = [
-  {
-    title: "头像",
-    dataIndex: "headimg",
-    key: "headimg",
-    filterSearch: true,
-    render: (_, record) => {
-      return <Image height={66} width={80} src={record.headimg} />;
-    },
-  },
-  {
-    title: "姓名",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <div>{text}</div>,
-  },
-  {
-    title: "专业",
-    dataIndex: "major",
-    key: "major",
-  },
-  {
-    title: "年级",
-    dataIndex: "grade",
-    key: "grade",
-  },
-  {
-    title: "性别",
-    key: "sex",
-    dataIndex: "sex",
-    render: (sex) => {
-      let color = sex === "男" ? "geekblue" : "volcano";
-      return (
-        <Tag color={color} key={sex}>
-          {sex}
-        </Tag>
-      );
-    },
-  },
-  {
-    title: "电话",
-    dataIndex: "phonenumber",
-    key: "phonenumber",
-  },
-  { title: "邮箱", dataIndex: "email", key: "email" },
-  {
-    title: "操作",
-    key: "action",
-
-    render: (_, record) => {
-      return (
-        <>
-          <MyDropdown></MyDropdown>
-        </>
-      );
-    },
-  },
-];
 
 const MyTable: React.FC = () => {
   const navigate = useNavigate(); //路由跳转
@@ -84,7 +29,69 @@ const MyTable: React.FC = () => {
     //重定向函数
     navigate(path);
   };
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "头像",
+      dataIndex: "headimg",
+      key: "headimg",
+      filterSearch: true,
+      render: (_, record) => {
+        return <Image height={66} width={80} src={record.headimg} />;
+      },
+    },
+    {
+      title: "姓名",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <div>{text}</div>,
+    },
+    {
+      title: "专业",
+      dataIndex: "major",
+      key: "major",
+    },
+    {
+      title: "年级",
+      dataIndex: "grade",
+      key: "grade",
+    },
+    {
+      title: "性别",
+      key: "sex",
+      dataIndex: "sex",
+      render: (sex) => {
+        let color = sex === "男" ? "geekblue" : "volcano";
+        return (
+          <Tag color={color} key={sex}>
+            {sex}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: "电话",
+      dataIndex: "phonenumber",
+      key: "phonenumber",
+    },
+    { title: "邮箱", dataIndex: "email", key: "email" },
+    {
+      title: "操作",
+      key: "action",
 
+      render: (_, record) => {
+        //这里的组件来自option.tsx的View组件，可以查看学生具体信息
+
+        const Delete=(arr:DataType[])=>{
+          setStudentList(arr)
+        }
+        return (
+          <>
+            <View prop={record} Delete={Delete}></View>
+          </>
+        );
+      },
+    },
+  ];
   const [studentlist, setStudentList] = useState(STUDENTS);
   const getStudents = () => {
     axios.get("/api/students").then((res) => {
@@ -165,11 +172,11 @@ const MyTable: React.FC = () => {
         })
         .then((res) => {
           console.log(res.data.students);
-          if (res.data.code === 0) {//把删除后的数组set
+          if (res.data.code === 0) {
+            //把删除后的数组set
             setStudentList(res.data.students);
             message.success("删除成功！");
-          }
-          else {
+          } else {
             message.error("该用户不存在！");
           }
         });
@@ -186,7 +193,7 @@ const MyTable: React.FC = () => {
       message.success("重置成功");
     });
   };
-  const add = (arr: DataType[]) => {
+  var add = (arr: DataType[]) => {
     //从Modal子组件传值
     setStudentList(arr);
   };

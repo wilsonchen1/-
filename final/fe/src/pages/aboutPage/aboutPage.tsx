@@ -21,7 +21,8 @@ function AboutPage() {
         <div> --pages</div>
         <div> --index.tsx</div>
       </div>
-      <div>7.table表格里的操作只是做了外观，是一个dropdown下拉菜单，menuitem里没有写编辑和查看，页面是准备好了的，但是不是很清楚怎么在colunm里写组件，因为是一个数组</div>
+      <div>7.表单的提交都做了正则判断，防止非法数据导入服务端</div>
+      <div>8.table表格里的操作只是做了外观，是一个dropdown下拉菜单，menuitem里没有写编辑和查看，页面是准备好了的，但是不是很清楚怎么在colunm里写组件，因为是一个数组</div>
 
       <div className="title">后端设计：</div>
       <div>1.语言为js</div>

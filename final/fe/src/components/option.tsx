@@ -1,51 +1,56 @@
-import {SettingOutlined} from '@ant-design/icons';
-import {MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
-import React from 'react';
+import { SettingOutlined } from "@ant-design/icons";
+import { message, Space } from "antd";
+import axios from "axios";
+import React, { useContext } from "react";
+import { listContext } from "./table/table";
 
-const items: MenuProps['items'] = [
-  
-  {
-    key: '1',
-    label: (
-      <a target="_self"  href="./student/">
-        查看
-      </a>
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        编辑
-      </a>
-    ),
-    
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        删除
-      </a>
-    ),
- 
-  },
-  {
-    key: '4',
-    danger: true,
-    label: 'a danger item',
-  },
-];
+type DataType = {
+  id: number;
+  key: string;
+  name: string;
+  sex: string;
+  major: string;
+  grade: string;
+  email: string;
+  phonenumber: string;
+  headimg: string;
+};
+interface Iprops {
+  //
+  prop: DataType;
+  Delete: (arr: any) => void;
+}
 
-const MyDropdown: React.FC = () => (
-  <Dropdown menu={{ items }}>
-    <a onClick={e => e.preventDefault()}>
-      <Space>
-        <SettingOutlined/>
-      </Space>
+const View: React.FC<Iprops> = (props: Iprops) => {
+  const gotoinfo = (stuinfo: Iprops) => {
+    //把数据传到
+    alert(stuinfo.prop.id);
+    // props.Delete()
+    // console.log(stuinfo.prop.id)
+  };
+  const deleterequest = (stuinfo: Iprops) => {
+    axios
+      .post("/api/students/delete", {
+        name: stuinfo.prop.name,
+      })
+      .then((res) => {
+        console.log(res.data.students);
+        stuinfo.Delete(res.data.students);
+        message.success("删除成功！")
+      });
+  };
+  return (
+    <a
+      onClick={(e) => {
+        e.preventDefault();
+        // gotoinfo(props);
+        deleterequest(props);
+      }}
+    >
+      点击删除
+      {/* <SettingOutlined></SettingOutlined> */}
     </a>
-  </Dropdown>
-);
+  );
+};
 
-export default MyDropdown;
+export default View;
