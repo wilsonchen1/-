@@ -20,11 +20,10 @@ const Login: React.FC = () => {
       .then((response) => {
         console.log(response);
         if (response.data.code === 0) {
-          message.success(response.data.message);
-          navigateTo("/");//登陆成功则跳转
-        } 
-        else {
-          message.error(response.data.message)
+          message.success(response.data.message); //后端登录成功的反馈
+          navigateTo("/"); //登陆成功则跳转
+        } else {
+          message.error(response.data.message);
         }
       });
   };
@@ -34,46 +33,51 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Form
-      className="login"
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "请输入用户名" }]}
+    <>
+      <img src="../logohuake.png" />
+      <Form
+        title="人员管理系统"
+        className="login"
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
       >
-        <Input />
-      </Form.Item>
+        <h1 className="h1">人员管理系统</h1>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "请输入用户名" }]}
+        >
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "请输入密码" }]}
-      >
-        <Input.Password />
-      </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "请输入密码" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          登录
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            登录
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

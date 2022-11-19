@@ -26,7 +26,7 @@
 ### `cd server`
 ### `node index.js`
 
-前端内容已经编译到后端public文件夹，直接运行node index.js就可以访问，但注意端口是3001
+前端内容已经编译到后端public文件夹，直接运行node index.js,打开浏览器输入网址就可以访问页面，但注意端口是3001
 [http://localhost:3001](http://localhost:3001)
 
 
