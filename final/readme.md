@@ -2,6 +2,8 @@
 
 基本框架是 [Create React App](https://github.com/facebook/create-react-app).
 
+登陆用户名：cyh
+密码：123123
 前后端分别的思路在注释和aboutPage页面有所体现
 ## 调试模式步骤
 
