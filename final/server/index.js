@@ -10,7 +10,7 @@ var app = new Koa();
 app.use(server("./public"));
 var router = new Router();
 
-var USERS = [];//后台本地存储
+var USERS = []; //后台本地存储
 function createRandomUser(index) {
   //创建数据
   return {
@@ -59,7 +59,7 @@ const CONFIG = {
 };
 app.use(session(CONFIG, app));
 
-async function checkUser(ctx) {
+async function checkUserLogin(ctx) {
   //首次登录接口
   console.log(ctx.request.body);
   const body = ctx.request.body;
@@ -171,8 +171,11 @@ async function editStudent(ctx) {
   const body = ctx.request.body;
   console.log(body.id);
   let ischange = 0;
-  for(let i=0;i<USERS.length;i++){
-    if(USERS[i].id==body.id){ USERS[i]=body;ischange=1}//修改数组
+  for (let i = 0; i < USERS.length; i++) {
+    if (USERS[i].id == body.id) {
+      USERS[i] = body;
+      ischange = 1;
+    } //修改数组
   }
   if (ischange) {
     ctx.body = {
@@ -213,7 +216,8 @@ async function deleteStudent(ctx) {
     };
   }
 }
-router.post("/api/user/login", checkUser); //登录
+router.post("/api/user/login", checkUserLogin); //登录
+
 router.post("/api/user/logout", getUserInfo, checkUserOut); //退出登录
 router.get("/api/students", getUserInfo, getStudents); //获取所有学生数据
 router.post("/api/students/add", getUserInfo, addStudent); //添加
