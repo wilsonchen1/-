@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .header {
+    display: flex;
+  }
+
+  .body {
+    margin: 0;
+    font-size: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  }
+
+  .wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: fit-content;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+  }
+
+  .list {
+    display: grid;
+    gap: 36px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .cover {
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .cover,
+  .cover>img {
+    width: 100%;
+    border-radius: 3%;
+  }
+
+  .avatar {
+    margin-right: 3px;
+    display: flex;
+    border-radius: 50%;
+  }
+
+  .name {
+    display: flex;
+    margin: 3px;
+    font-weight: bold;
+  }
+
+  .badge {
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #b4b4c5;
+    border-radius: 15%;
+    color: whitesmoke;
+    margin: 3px;
+  }
+
+  .likes,
+  .views {
+    display: flex;
+    width: 13px;
+    margin: 3px;
+  }
+
+  .data {
+    display: flex;
+    margin: 3px;
+  }
+
+  .source {
+    display: flex;
+  }
+
+  .item {
+    display: block;
+  }
+
+  .baseline {
+    font-size: 0.4em;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .banner {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #f9f8fe;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    padding-top: 50px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 10px -8px;
+    align-items: center;
+  }
+  .banner img{
+    max-width: 275px;
+    width: 100%;
+  }
+  .footer {
+    color: #5a6471;
+    background-color: #fafafa;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+
+
+  .menu_content {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 46.25px;
+    left: 0;
+    margin-top: 5px;
+    background-color: #fafafa;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .img_close {
+    background-color: white;
+    position: fixed;
+    width: 30px;
+    padding-left: 20px;
+    padding-top: 15px;
+    top: 0;
+    left: 0;
+    z-index: 3;
+  }
+  .word{
+    margin-top: 30px;
+    margin-left: 17px;
+    color: grey;
+    font-weight: bolder;
+  }
+</style>
+
+<body>
+
+  <div class="wrap">
+    <button style="border: none;background: none;padding-left: 25px;" onclick="menu_click()">
+      <img src="imgs/icon-menu.svg" width="18">
+    </button>
+    <img src="imgs/logo-black.svg" width="85" style="padding-left:20px ;">
+    <div style="color:#9e9ea7;padding-right: 30px;">Sign in</div>
+    <!-- <img src="imgs/icon-close.svg" width="24"> -->
+  </div>
+  <div class="banner">
+       <img src="imgs/banner.webp" width="100%">
+    <div style="display: flex; align-items: center;flex-direction: column; max-width: 400px;">
+      <div style="font-weight:bold ;font-size:x-large;text-align: center;margin-bottom: 20px; padding-top: 30px;">
+        Discover the world's top designers & creatives
+      </div>
+      <div style="text-align:center ;margin-bottom: 15px;">
+        Dribbble is the leading destination to find & showcase creative work and home to the world's best design
+        professionals.
+      </div>
+      <div
+        style="background-color:#ea4c89;border-radius: 7px;width: 60px;height: 25px;color: white;text-align:center ;margin: 0 auto;padding: 10px;padding-top: 5px;padding-bottom: 5px;margin-bottom: 50px;">
+        Sign up</div>
+    </div>
+  </div>
+
+</body>
+<script src="main.js"></script>
+
+<body>
+  <div class="footer">
+    <img src="imgs/logo-red.svg" width="100" style="margin-bottom:25px;">
+    <div>Dribbble is the world's leading</div>
+    <div>community for creatives to share,grow,</div>
+    <div>and get hired.</div>
+  </div>
+</body>
+
+</html>
